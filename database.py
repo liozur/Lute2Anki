@@ -22,24 +22,41 @@ class LuteDatabase:
         # SELECT query to load information from lute.db (not all fields are used)
         if parents_only:
             base_query = """
-                SELECT DISTINCT
-                    WoText, WoTranslation, WoLgID, WoCreated, TgText,
-                    WoStatusChanged, WoTextLC, WoID, WoStatus, WoRomanization,
-                    WiSource, TgComment, WpParentWoID 
-                FROM wordparents AS wp
-                LEFT JOIN words AS w ON wp.WpParentWoID = w.WoID
-                LEFT JOIN wordimages AS wi ON w.WoID = wi.WiWoID
-                LEFT JOIN wordtags AS wt ON wi.WiWoID = wt.WtWoID
-                LEFT JOIN tags AS t ON wt.WtTgID = t.TgID
+                SELECT
+                    w.WoText,
+                    w.WoTranslation,
+                    w.WoLgID,
+                    w.WoCreated,
+                    t.TgText,
+                    w.WoStatusChanged,
+                    w.WoTextLC,
+                    w.WoID,
+                    w.WoStatus,
+                    w.WoRomanization,
+                    w.WoTokenCount,
+                    wi.WiSource,
+                    t.TgComment
+                FROM
+                    words AS w
+                LEFT JOIN
+                    wordimages AS wi ON w.WoID = wi.WiWoID
+                LEFT JOIN
+                    wordtags AS wt ON wi.WiWoID = wt.WtWoID
+                LEFT JOIN
+                    tags AS t ON wt.WtTgID = t.TgID
+                LEFT JOIN
+                    wordparents AS wp_child ON w.WoID = wp_child.WpWoID
+                LEFT JOIN
+                    wordparents AS wp_parent ON w.WoID = wp_parent.WpParentWoID
             """
         else:
             base_query = """
-                SELECT WoText, WoTranslation, WoLgID, WoCreated, TgText, 
-                    WoStatusChanged, WoTextLC, WoID, WoStatus, WoRomanization, 
+                SELECT WoText, WoTranslation, WoLgID, WoCreated, TgText,
+                    WoStatusChanged, WoTextLC, WoID, WoStatus, WoRomanization,
                     WiSource, TgComment
-                FROM words AS w 
-                LEFT JOIN wordimages AS wi ON w.WoID = wi.WiWoID 
-                LEFT JOIN wordtags AS wt ON wi.WiWoID = wt.WtWoID 
+                FROM words AS w
+                LEFT JOIN wordimages AS wi ON w.WoID = wi.WiWoID
+                LEFT JOIN wordtags AS wt ON wi.WiWoID = wt.WtWoID
                 LEFT JOIN tags AS t ON wt.WtTgID = t.TgID
             """
         # Put together list of conditions to use as filter
