@@ -1,13 +1,15 @@
 # LUTE to Anki importer
+
 Anki Add-on to import terms from LUTE to Anki
 This is work in progress and by no means the best or most efficient way to code this but could be useful or used as inspiration for better add-ons for importing terms from LUTE to Anki. Currently it supports only simple cards with Two values - Front: term from LUTE, Back: its translation from LUTE.
 
 ## How to use it
+
 1. Click "Select lute.db file to import" button to navigate to and select the lute.db file when using it for the first time (You can find the path in LUTE in the About - Version and software info section as Data path).
 2. Choose filters which will be used for loading terms from lute.db - checkboxes to include only parent terms, terms with blank translation, terms with statuses Well known and Ignored and whether you wish to import tags
-    Additionally also select from how many previous days to import new terms - default is 0 which means today, e.g. 3 means everything from the previous three days + today will be imported
+   Additionally also select from how many previous days to import new terms - default is 0 which means today, e.g. 3 means everything from the previous three days + today will be imported
 3. Click "Connect to lute.db" button after selecting your lute.db file and setting up filters to load LUTE data
-    If you change filters click "Reload terms" to reflect the changes in loaded terms
+   If you change filters click "Reload terms" to reflect the changes in loaded terms
 4. Select Card type which will be used (currently only term for Front and translation for Back are used)
 5. Select language of the terms you want to import (based on language of the text in LUTE from which is the saved term) Currently the language options are loaded after loading terms from LUTE in Step 3
 6. Input tags you want to assign to all cards you will import. Unique tags are separated by a space - "Add this tag" will result in cards having tags "Add", "this" and "tag".
@@ -17,6 +19,7 @@ This is work in progress and by no means the best or most efficient way to code 
 10. When finished importing close the add-on window and go learn the new cards in Anki.
 
 ## Configurable settings
+
 1. Parent terms only: if you want to create notes only for Parent terms from Lute
 2. Allowing empty translation: if you want to include also terms for which you have not filled the translation field in Lute
 3. Allowing duplicates: if you want to allow duplicates (creating notes with the same Front (first value) already existing in your Anki
