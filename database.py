@@ -71,6 +71,10 @@ class LuteDatabase:
         if not include_WKI:
             where_conditions.append("WoStatus <= 5")
 
+        include_unknown = False  # TODO: add in options
+        if not include_unknown:
+            where_conditions.append("1 <= WoStatus")
+
         # Join all conditions with 'AND'
         where_clause = "WHERE " + " AND ".join(where_conditions)
         log_info("[database] Executing SQL query to fetch terms.")
