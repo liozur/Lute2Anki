@@ -62,6 +62,7 @@ class LuteDatabase:
         # Put together list of conditions to use as filter
         where_conditions = [
             "WoTranslation IS NOT NULL",
+            "(wp_child.WpParentWoID IS NULL OR wp_parent.WpParentWoID IS NOT NULL)",
             f'WoCreated >= "{cutoff_date.isoformat()}"',
         ]
 
