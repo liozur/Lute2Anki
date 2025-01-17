@@ -70,6 +70,9 @@ class NoteCreator:
             note.fields[0] = term[0].replace(zws, "")
             note.fields[1] = term[1].replace(zws, "")
 
+            # TODO: this is a temporary fix for newlines in macos, need to find a better solution
+            note.fields[1] = term[1].replace("\r\n", "<br>")
+
             if adjust_ease:
                 """ Assigning ease based on status in Lute giving default 250% to Status=3 and increasing/decreasing by 15% per level, """
                 """ capping it at 300% for Well known and Ignored (term[8] is status: 1,2,3,4,5,98,99) """
