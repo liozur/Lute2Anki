@@ -25,6 +25,8 @@ class NoteCreator:
         self.adjust_ease = adjust_ease
         self.tags = tags
 
+        self.show = 1
+
     def create_cards(self, terms: List, selected_lang: str) -> int:
         """Adds Anki cards from LUTE terms into deck with specified settings"""
         log_info(f"[note_creator] Starting to create notes in deck: {self.deck_name}")
@@ -72,6 +74,25 @@ class NoteCreator:
 
             # TODO: this is a temporary fix for newlines in macos, need to find a better solution
             note.fields[1] = term[1].replace("\r\n", "<br>")
+
+            import re
+
+            note.fields[1] = re.sub(
+                r"(?<!^)【..】",
+                r"<br><br>\g<0>",
+                note.fields[1],
+            )
+
+            note.fields[1] = re.sub(
+                r"【..】",
+                r"\g<0><br>",
+                note.fields[1],
+            )
+
+            # if self.show:
+            #     showInfo("OK~")
+            #     showInfo(note.fields[1])
+            #     self.show = 0
 
             if adjust_ease:
                 """ Assigning ease based on status in Lute giving default 250% to Status=3 and increasing/decreasing by 15% per level, """
